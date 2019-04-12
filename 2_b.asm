@@ -1,39 +1,39 @@
 .data
- n: .word 3
+ n: .word 5
  r: .word 0
 
 .text
 main:
 	lw $a0,n
-	jal fact
+	jal F
 	
 	sw $v0,r	
-	li $v0,1
+	addi $v0,$zero,1
 	lw $a0,r
 	syscall
      
-        li $v0,10
+        addi $v0,$zero,10
 	syscall
           
 
-fact:
-	subu $sp,$sp,8
+F:
+	addi $sp,$sp,-8
 	sw $ra,0($sp)
 	sw $s0,4($sp)
-	li $v0,1
+	addi $v0,$zero,1
 
-       	beq $a0,$0,end
+       	beq $a0,$0,E
 	
 	addi $s0,$a0,0
-	subu $a0,$a0,1
+	addi $a0,$a0,-1
 	jal fact
 	
 	mult $v0,$s0
 	mflo $v0
 
 
-end:
+E:
 	lw $ra,0($sp)
 	lw $s0,4($sp)
 	addi $sp,$sp,8
-jr $ra
+j $ra
