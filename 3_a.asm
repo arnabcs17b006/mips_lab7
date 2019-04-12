@@ -27,12 +27,16 @@ L:
 	bc1f E
 	l.s $f0,m
 	sub.s $f4,$f4,$f6
-	
-jal L
-	        beq $t5,$t1,L1
+	jal L
+	beq $t5,$t1,L1
 	beq $t5,$t2,L2
 	beq $t5,$t3,L3
 	beq $t5,$t4,L4
+E:
+	lw $ra,0($sp)
+	l.s $f0,4($sp)
+	addi $sp,$sp,8
+	j $ra
 L1:
         li.s $f1,6.67
 	mul.s $f7,$f0,$f1
@@ -59,8 +63,4 @@ L4:
 	add.s $f7,$f8,$f1
 	addi $t5,$t5,1
   j E
- E:
-	lw $ra,0($sp)
-	l.s $f0,4($sp)
-	addi $sp,$sp,8
-	j $ra
+ 
